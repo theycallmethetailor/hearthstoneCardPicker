@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create New Card</title>
+    <style>
+
+        *{
+            text-align: center;
+        }
+        form {
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        form input, form button {
+            width: 200px;
+            height: 40px;
+            margin: 5px;
+        }
+
+        .row {
+            display: flex;
+            justify-content:space-around;
+            align-items: flex-start;
+        }      
+        
+        ul {
+            list-style-type: none;
+        }
+
+        .list .card {
+            padding: 20px;
+            max-height: 200px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <div class="form">
+            <form action="/cards" method="POST">
+                <input type="number" name="mana" placeholder="Mana">
+                <input type="number" name="attack" placeholder="Attack">
+                <input type="number" name="health" placeholder="Health">
+                 <input type="text" name="description" placeholder="Name/Description">
+                <button type="submit">Create</button>
+            </form>
+        </div>
+        <div class="row">
+                <div class="users-cards list">
+                        <h3>Your current deck:</h3>
+                        <ul class="deck-container">
+                            
+                            <% if(!deck.length) {  %> 
+                                <p>YOU CURRENTLY HAVE NO CARDS IN YOUR DECK</p>
+                            <% } else { %>
+                                <% for(let i = 0; i < deck.length; i++) { %> 
+                                    <% let usersCards = cards.filter(card => card.id === deck[i]) %>
+                                    <% for(let j = 0; j < usersCards.length; j++) { %>
+                                        <li class="card">
+                                            <h5><%= usersCards[j].description %> </h5>
+                                            <p>Created: <%= usersCards[j].created_at %></p>
+                                            <p>Mana: <%= usersCards[j].mana %> </p>
+                                            <p>Health: <%= usersCards[j].health %> </p>
+                                            <p>Attack: <%= usersCards[j].attack %> </p>
+                                        </li>
+                                        <hr>
+            
+                                    <% } %>
+                                    
+                                <% } %>
+                            <% } %>
+                        </ul>
+            
+                    </div>
+            
+                    <div class="card-list list">
+                        <h3>All Cards</h3>
+                        <ul class="all-cards-container">
+                            <% for(let i = 0; i < cards.length; i++) { %> 
+                                <li class="card">
+                                    <h5><%= cards[i].description %> </h5>
+                                    <p>Created: <%= cards[i].created_at %></p>
+                                    <p>Mana: <%= cards[i].mana %> </p>
+                                    <p>Health: <%= cards[i].health %> </p>
+                                    <p>Attack: <%= cards[i].attack %> </p>
+                                    <a href="/deck/<%= cards[i].id %>">Add to deck</a>
+                                </li>
+                                <hr>
+                            <% } %>
+                        </ul>
+                    </div>
+            
+
+        </div>
+        
+    </main>
+    
+</body>
+</html>

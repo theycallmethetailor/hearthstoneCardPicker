@@ -1,7 +1,10 @@
 //Update the name of the controller below and rename the file.
-const template = require("../controllers/template.js")
+const cards = require("../controllers/cards.js")
 module.exports = function(app){
 
-  app.get('/', template.index);
+  app.get('/', cards.index);
+  app.get('/deck/:card_id', cards.addToDeck)
+
+  app.post('/cards', cards.createNewCard);
 
 }
