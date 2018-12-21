@@ -31,6 +31,14 @@
             list-style-type: none;
         }
 
+        .deck-container > .card {
+            background-color: aquamarine;
+        }
+
+        .all-cards-container > .card {
+            background-color: rgb(95, 109, 109);
+        }
+
         .list .card {
             padding: 20px;
             max-height: 200px;
@@ -64,12 +72,13 @@
                                 <% for(let i = 0; i < deck.length; i++) { %> 
                                     <% let usersCards = cards.filter(card => card.id === deck[i]) %>
                                     <% for(let j = 0; j < usersCards.length; j++) { %>
-                                        <li class="card">
+                                        <li class="card" id="<%= j + 1 %>">
                                             <h5><%= usersCards[j].description %> </h5>
                                             <p>Created: <%= usersCards[j].created_at %></p>
                                             <p>Mana: <%= usersCards[j].mana %> </p>
                                             <p>Health: <%= usersCards[j].health %> </p>
                                             <p>Attack: <%= usersCards[j].attack %> </p>
+                                            <div><a href="/removeCard/<%= i %>">Remove from deck</a></div>
                                         </li>
                                         <hr>
             

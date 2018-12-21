@@ -36,5 +36,11 @@ module.exports = {
     }
     // console.log(req.session.deck.filter(card => card === parseInt(req.params.card_id)))
     
+  },
+  removeFromDeck: (req, res) => {
+    req.session.deck.splice(req.params.index, 1);
+    req.session.save(()=> {
+      res.redirect('/')
+    })
   }
 }
